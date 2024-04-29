@@ -4,7 +4,6 @@ import {
   SolutionScriptFunction,
 } from 'flair-sdk'
 
-
 const PACKAGE_NAME = '@flair-sdk/solution-defi-lending'
 
 export type Config = {

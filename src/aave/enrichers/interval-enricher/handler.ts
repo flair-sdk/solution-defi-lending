@@ -1,4 +1,5 @@
 import { calculateAaveValues } from "../../utils.js";
+import { Customizations } from '../../../lib/customizations.js'
 
 export async function handleInput() {
   const markets = [
@@ -6,7 +7,11 @@ export async function handleInput() {
   ];
 
   for (const market of markets) {
-    return await calculateAaveValues(market?.address, market?.chainId)
+    const values = await calculateAaveValues(market?.address, market?.chainId)
+
+    if (Customizations?.onBorrowAPY) {
+      await Customizations.onBorrowAPY(market?.address, values?.variableBorrowAPY)
+    }
   };
 
   return true;

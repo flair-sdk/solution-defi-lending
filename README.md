@@ -35,9 +35,8 @@ filterGroups:
       - fromFile: ./contracts.csv
 
 # ...
-
 solutions:
-  - source: "@flair-sdk/solution-indexing-nft"
+  - source: "@flair-sdk/solution-defi-lending"
     config:
       aave:
         intervalEnricher:
