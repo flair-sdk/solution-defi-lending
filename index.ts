@@ -40,7 +40,7 @@ const definition: SolutionDefinition<Config> = {
           id: 'aave-interval-enricher',
           engine: EnricherEngine.Rockset,
           env: [...commonEnvVars],
-          inputSql: `${PACKAGE_NAME}/src/aave/enrichers/interval-enricher/input.sql`,
+          // inputSql: `${PACKAGE_NAME}/src/aave/enrichers/interval-enricher/input.sql`,
           handler: `${PACKAGE_NAME}/src/aave/enrichers/interval-enricher/handler.ts`,
         },
       ];
