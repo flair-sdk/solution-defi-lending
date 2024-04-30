@@ -13,7 +13,7 @@ try {
   throw AppError.causedBy(err, {
     code: 'DefiLendingCustomizations',
     message:
-      'Failed to load customizations script for NftIndexingCustomizations.',
+      'Failed to load customizations script for DefiLendingCustomizations.',
     details: {
       path: process.env.CUSTOMIZATIONS_FILE_PATH,
     },
