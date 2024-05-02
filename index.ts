@@ -1,5 +1,4 @@
 import {
-  EnricherEngine,
   ProcessorType,
   SolutionDefinition,
   SolutionScriptFunction,
