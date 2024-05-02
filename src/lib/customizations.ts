@@ -1,7 +1,7 @@
 import { AppError } from 'flair-sdk'
 
 export type DefiLendingCustomizations = {
-  onBorrowAPY?: (market: string, borrowAPY: string) => Promise<void>
+  onBorrowAPY?: (asset: string, protocol: string, borrowAPY: string) => Promise<void>
 }
 
 let _customizations: DefiLendingCustomizations | null

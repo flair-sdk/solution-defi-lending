@@ -1,5 +1,6 @@
 import {
   EnricherEngine,
+  ProcessorType,
   SolutionDefinition,
   SolutionScriptFunction,
 } from "flair-sdk";
@@ -9,12 +10,13 @@ export type * from './src/index.js';
 const PACKAGE_NAME = "@flair-sdk/solution-indexing-defi-lending";
 
 export type Config = {
-  aave?: {
-    intervalEnricher: {
-      enabled?: boolean;
-      interval?: string;
-    };
+  borrowAPYChangeTracker?: {
+    enabled: boolean;
   };
+  assets?: {
+    chainId: number;
+    address: string;
+  }
   customizations?: string;
   env?: Record<string, string>;
 };
@@ -35,24 +37,14 @@ const definition: SolutionDefinition<Config> = {
       });
     }
 
-    if (config?.aave?.intervalEnricher?.enabled) {
-      manifest.enrichers = [
-        ...(manifest.enrichers || []),
+    if (config?.borrowAPYChangeTracker?.enabled) {
+      manifest.processors = [
+        ...(manifest.processors || []),
         {
-          id: "aave-interval-enricher",
-          engine: EnricherEngine.Rockset,
-          env: [...commonEnvVars],
-          inputSql: `${PACKAGE_NAME}/src/aave/enrichers/interval-enricher/input.sql`,
-          handler: `${PACKAGE_NAME}/src/aave/enrichers/interval-enricher/handler.ts`,
-        },
-      ];
-      manifest.workers = [
-        ...(manifest.workers || []),
-        {
-          id: "aave-interval-worker",
-          schedule: config.aave.intervalEnricher.interval || "rate(1 day)",
-          enabled: true,
-          enricher: "aave-interval-enricher",
+          id: 'borrow-apy-change-tracker',
+          type: ProcessorType.Event,
+          handler: `${PACKAGE_NAME}/src/processors/borrow-apy-change-tracker/handler.ts`,
+          abi: `${PACKAGE_NAME}/src/abis/borrow-apy-change-tracker/**/*.json`,
         },
       ];
     }
