@@ -8,9 +8,9 @@ export const processEvent = async (event: EventHandlerInput) => {
     event.parsed?.args?.variableBorrowRate,
     event.parsed?.args?.stableBorrowRate,
   );
-  console.debug(`Aave Borrow APY: ${variableBorrowAPY}-${event.parsed?.args?.reserve}-${event.parsed?.args?.user}`);
+  console.debug(`Aave Borrow APY: ${variableBorrowAPY}-${event.parsed?.args?.reserve}`);
   if (Customizations?.onBorrowAPY) {
-    await Customizations?.onBorrowAPY(event.parsed?.args?.reserve, 'aave', variableBorrowAPY);
+    return await Customizations?.onBorrowAPY(event.parsed?.args?.reserve, 'aave', variableBorrowAPY);
   }
 
   return true;
