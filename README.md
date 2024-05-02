@@ -1,4 +1,4 @@
-# DEFI LENDING INDEXING
+# DeFi Lending Indexing
 
 [![Flair](https://img.shields.io/badge/Powered%20by-Flair-ff69b4)](https://flair.dev)
 
