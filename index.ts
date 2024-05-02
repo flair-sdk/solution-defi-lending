@@ -30,10 +30,12 @@ const definition: SolutionDefinition<Config> = {
 
     if (config?.customizations) {
       const compiledPath = context.addEntrypoint(config.customizations);
+      console.debug(`Customizations file path: ${compiledPath}`);
       commonEnvVars.push({
         name: "CUSTOMIZATIONS_FILE_PATH",
         value: compiledPath,
       });
+      console.debug(`Customizations file path: ${compiledPath}`);
     }
 
     if (config?.borrowAPYChangeTracker?.enabled) {
