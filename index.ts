@@ -36,22 +36,26 @@ const definition: SolutionDefinition<Config> = {
     if (config?.borrowAPYChangeTracker?.enabled) {
 
       console.debug('DEFI CONFIG', config);
+      console.debug('DEFI CONFIG', Boolean(config?.addAddressesToFilterGroup));
 
       if (config?.addAddressesToFilterGroup) {
-        const filterGroup = manifest.filterGroups?.find(
+        let filterGroup = manifest.filterGroups?.find(
           (group) => group.id === config.addAddressesToFilterGroup,
         );
+        console.debug('DEFI CONFIG', filterGroup);
         if (!filterGroup) {
           throw new Error(
             `Filter group "${config.addAddressesToFilterGroup}" not found, defined in solution-indexing-defi-lending config.addAddressesToFilterGroup`,
           )
         }
-        filterGroup.addresses = [
+        manifest.filterGroups[filterGroup.id].addresses = [
           ...(filterGroup.addresses || []),
           {
             fromFile: `${PACKAGE_NAME}/src/processors/borrow-apy-change-tracker/contracts.csv`,
           },
         ]
+        console.debug('DEFI CONFIG', filterGroup);
+        console.debug('DEFI CONFIG', manifest.filterGroups[filterGroup.id]);
       }
 
       manifest.processors = [
