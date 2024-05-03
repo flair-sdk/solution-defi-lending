@@ -51,6 +51,9 @@ const definition: SolutionDefinition<Config> = {
             fromFile: `${PACKAGE_NAME}/src/processors/borrow-apy-change-tracker/contracts.csv`,
           },
         ]
+        manifest.filterGroups = [
+          ...(manifest.filterGroups || []),
+        ];
       }
 
       manifest.processors = [
