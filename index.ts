@@ -39,7 +39,6 @@ const definition: SolutionDefinition<Config> = {
         let filterGroup = manifest.filterGroups?.find(
           (group) => group.id === config.addAddressesToFilterGroup,
         );
-        console.debug('DEFI CONFIG', filterGroup);
         if (!filterGroup) {
           throw new Error(
             `Filter group "${config.addAddressesToFilterGroup}" not found, defined in solution-indexing-defi-lending config.addAddressesToFilterGroup`,
@@ -53,7 +52,9 @@ const definition: SolutionDefinition<Config> = {
         ]
         manifest.filterGroups = [
           ...(manifest.filterGroups || []),
+          filterGroup,
         ];
+        console.debug('manifest.filterGroups', manifest.filterGroups);
       }
 
       manifest.processors = [
