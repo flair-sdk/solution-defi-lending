@@ -50,9 +50,6 @@ const definition: SolutionDefinition<Config> = {
           );
         }
 
-        console.debug('...(filterGroup.addresses', ...(filterGroup.addresses));
-  
-
         // Update the addresses array of the found filter group
         filterGroup.addresses = [
           ...(filterGroup.addresses || []),
@@ -61,10 +58,13 @@ const definition: SolutionDefinition<Config> = {
           },
         ];
 
-        console.debug('filterGroup', filterGroup);
+        manifest.filterGroups = [
+          ...manifest.filterGroups.filter(
+            (group) => group.id !== config.addAddressesToFilterGroup
+          ),
+          filterGroup,
+        ];
       }
-
-      console.debug('MANIFEST', manifest.filterGroups);
 
       manifest.processors = [
         ...(manifest.processors || []),
@@ -77,6 +77,7 @@ const definition: SolutionDefinition<Config> = {
         },
       ];
     }
+
     return manifest;
   },
   registerScripts: (_): Record<string, SolutionScriptFunction> => {
