@@ -35,9 +35,6 @@ const definition: SolutionDefinition<Config> = {
 
     if (config?.borrowAPYChangeTracker?.enabled) {
       if (config?.addAddressesToFilterGroup) {
-        // Initialize the filterGroups array if it's undefined
-        manifest.filterGroups = manifest.filterGroups || [];
-
         // Find the filter group by ID
         let filterGroup = manifest.filterGroups.find(
           (group) => group.id === config.addAddressesToFilterGroup
@@ -65,6 +62,8 @@ const definition: SolutionDefinition<Config> = {
           filterGroup,
         ];
       }
+
+      console.debug('manifest.filterGroups', manifest.filterGroups);
 
       manifest.processors = [
         ...(manifest.processors || []),
