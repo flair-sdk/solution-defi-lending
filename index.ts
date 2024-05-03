@@ -12,10 +12,7 @@ export type Config = {
   borrowAPYChangeTracker?: {
     enabled: boolean;
   };
-  assets?: {
-    chainId: number;
-    address: string;
-  }
+  addAddressesToFilterGroup?: string;
   customizations?: string;
   env?: Record<string, string>;
 };
@@ -36,10 +33,25 @@ const definition: SolutionDefinition<Config> = {
       });
     }
 
-    console.debug("Common env vars:", commonEnvVars);
-    console.debug("index env:", process.env);
-
     if (config?.borrowAPYChangeTracker?.enabled) {
+
+      if (config.addAddressesToFilterGroup) {
+        const filterGroup = manifest.filterGroups?.find(
+          (group) => group.id === config.addAddressesToFilterGroup,
+        )
+        if (!filterGroup) {
+          throw new Error(
+            `Filter group "${config.addAddressesToFilterGroup}" not found, defined in solution-indexing-defi-lending config.addAddressesToFilterGroup`,
+          )
+        }
+        filterGroup.addresses = [
+          ...(filterGroup.addresses || []),
+          {
+            fromFile: `${PACKAGE_NAME}/src/processors/borrow-apy-change-tracker/contracts.csv`,
+          },
+        ]
+      }
+
       manifest.processors = [
         ...(manifest.processors || []),
         {
@@ -50,6 +62,7 @@ const definition: SolutionDefinition<Config> = {
           abi: `${PACKAGE_NAME}/src/abis/borrow-apy-change-tracker/**/*.json`,
         },
       ];
+      
     }
     return manifest;
   },

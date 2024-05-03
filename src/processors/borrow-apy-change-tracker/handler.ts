@@ -1,13 +1,25 @@
 import { EventHandlerInput } from "flair-sdk";
 import { Customizations } from '../../lib/customizations.js';
-import { calculateAPYValues } from "../../functions/aave.js";
+import { calculateAaveAPYValues } from "../../functions/aave.js";
 
 export const processEvent = async (event: EventHandlerInput) => {
-  const { variableBorrowAPY } = await calculateAPYValues(
-    event.parsed?.args?.liquidityRate, 
-    event.parsed?.args?.variableBorrowRate,
-    event.parsed?.args?.stableBorrowRate,
-  );
-  
-  return await Customizations.onBorrowAPY(event.parsed?.args?.reserve, 'aave', variableBorrowAPY)
+
+  // AAVE V3
+  const isAaveV3Event =
+    event.parsed?.args?.variableBorrowRate &&
+    event.parsed?.args?.stableBorrowRate;
+
+  if (isAaveV3Event) {
+    const { variableBorrowAPY } = await calculateAaveAPYValues(
+      event.parsed?.args?.liquidityRate, 
+      event.parsed?.args?.variableBorrowRate,
+      event.parsed?.args?.stableBorrowRate,
+    );
+
+    if (Customizations?.onBorrowAPY) {
+      await Customizations?.onBorrowAPY(event.parsed?.args?.reserve, 'aave-v3', variableBorrowAPY);
+    }
+  }
+
+  return true;
 };

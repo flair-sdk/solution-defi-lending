@@ -27,7 +27,7 @@ function formatAPYValues(reserveData) {
   };
 }
 
-export async function calculateAPYValues(liquidityRate: string, variableBorrowRate: string, stableBorrowRate: string) {
+export async function calculateAaveAPYValues(liquidityRate: string, variableBorrowRate: string, stableBorrowRate: string) {
   const reserveData = {
     liquidityRate,
     variableBorrowRate,
