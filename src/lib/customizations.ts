@@ -9,7 +9,6 @@ try {
   if (process.env.CUSTOMIZATIONS_FILE_PATH) {
     _customizations = require(process.env.CUSTOMIZATIONS_FILE_PATH)
   }
-  console.debug(`Customizations file path: ${_customizations}`)
 } catch (err: any) {
   throw AppError.causedBy(err, {
     code: 'DefiLendingCustomizations',

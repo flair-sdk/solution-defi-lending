@@ -8,5 +8,10 @@ export const processEvent = async (event: EventHandlerInput) => {
     event.parsed?.args?.variableBorrowRate,
     event.parsed?.args?.stableBorrowRate,
   );
-  return await Customizations?.onBorrowAPY(event.parsed?.args?.reserve, 'aave', variableBorrowAPY);
+  
+  if (Customizations?.onBorrowAPY) {
+    await Customizations.onBorrowAPY(event.parsed?.args?.reserve, 'aave', variableBorrowAPY)
+  }
+
+  return true;
 };
