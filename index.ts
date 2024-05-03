@@ -108,16 +108,6 @@ const definition: SolutionDefinition<Config> = {
         ];
       }
 
-      console.debug(
-        "manifest.filterGroups",
-        manifest.filterGroups[0].addresses
-      );
-
-      console.debug(
-        "manifest.filterGroups",
-        manifest.filterGroups[1].addresses
-      );
-
       manifest.processors = [
         ...(manifest.processors || []),
         {
