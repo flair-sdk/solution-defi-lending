@@ -35,10 +35,12 @@ const definition: SolutionDefinition<Config> = {
 
     if (config?.borrowAPYChangeTracker?.enabled) {
 
-      if (config.addAddressesToFilterGroup) {
+      console.debug('DEFI CONFIG', config);
+
+      if (config?.addAddressesToFilterGroup) {
         const filterGroup = manifest.filterGroups?.find(
           (group) => group.id === config.addAddressesToFilterGroup,
-        )
+        );
         if (!filterGroup) {
           throw new Error(
             `Filter group "${config.addAddressesToFilterGroup}" not found, defined in solution-indexing-defi-lending config.addAddressesToFilterGroup`,
