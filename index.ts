@@ -35,9 +35,6 @@ const definition: SolutionDefinition<Config> = {
 
     if (config?.borrowAPYChangeTracker?.enabled) {
 
-      console.debug('DEFI CONFIG', config);
-      console.debug('DEFI CONFIG', Boolean(config?.addAddressesToFilterGroup));
-
       if (config?.addAddressesToFilterGroup) {
         let filterGroup = manifest.filterGroups?.find(
           (group) => group.id === config.addAddressesToFilterGroup,
@@ -54,11 +51,6 @@ const definition: SolutionDefinition<Config> = {
             fromFile: `${PACKAGE_NAME}/src/processors/borrow-apy-change-tracker/contracts.csv`,
           },
         ]
-        manifest.filterGroups = [
-          ...(manifest.filterGroups || []),
-          filterGroup,
-        ];
-        console.debug('DEFI CONFIG', manifest.filterGroups);
       }
 
       manifest.processors = [
