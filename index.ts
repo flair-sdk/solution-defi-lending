@@ -56,14 +56,11 @@ const definition: SolutionDefinition<Config> = {
         ];
 
         manifest.filterGroups = [
-          ...manifest.filterGroups.filter(
-            (group) => group.id !== config.addAddressesToFilterGroup
-          ),
           filterGroup,
         ];
       }
 
-      console.debug('manifest.filterGroups', manifest.filterGroups);
+      console.debug('manifest.filterGroups', manifest.filterGroups[0].addresses);
 
       manifest.processors = [
         ...(manifest.processors || []),
