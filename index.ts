@@ -45,6 +45,7 @@ const definition: SolutionDefinition<Config> = {
         {
           id: 'borrow-apy-change-tracker',
           type: ProcessorType.Event,
+          env: [...commonEnvVars],
           handler: `${PACKAGE_NAME}/src/processors/borrow-apy-change-tracker/handler.ts`,
           abi: `${PACKAGE_NAME}/src/abis/borrow-apy-change-tracker/**/*.json`,
         },
