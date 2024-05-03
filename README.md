@@ -36,7 +36,7 @@ filterGroups:
 
 # ...
 solutions:
-  - source: "@flair-sdk/solution-defi-lending"
+  - source: "@flair-sdk/solution-indexing-defi-lending"
     config:
       aave:
         intervalEnricher:

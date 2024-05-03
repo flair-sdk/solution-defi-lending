@@ -28,6 +28,8 @@ const definition: SolutionDefinition<Config> = {
         : []),
     ];
 
+    console.debug('CONFIG VARS', config);
+
     if (config?.customizations) {
       const compiledPath = context.addEntrypoint(config.customizations);
       console.debug(`Customizations file path: ${compiledPath}`);
