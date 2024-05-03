@@ -8,9 +8,6 @@ let _customizations: DefiLendingCustomizations | null
 try {
   if (process.env.CUSTOMIZATIONS_FILE_PATH) {
     _customizations = require(process.env.CUSTOMIZATIONS_FILE_PATH);
-    console.debug(`process.env.CUSTOMIZATIONS_FILE_PATH ${process.env.CUSTOMIZATIONS_FILE_PATH}`);
-    console.debug(`Loaded customizations from ${_customizations}`);
-    console.debug('...((_customizations as any)?.default || {})', ...((_customizations as any)?.default || {})); 
   }
 } catch (err: any) {
   throw AppError.causedBy(err, {
@@ -22,6 +19,10 @@ try {
     },
   })
 }
+
+console.debug('Customizations:', _customizations);
+console.debug('process.env:', process.env);
+
 
 export const Customizations: DefiLendingCustomizations = {
   ...((_customizations as any)?.default || {}),

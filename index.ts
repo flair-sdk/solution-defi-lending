@@ -36,6 +36,9 @@ const definition: SolutionDefinition<Config> = {
       });
     }
 
+    console.debug("Common env vars:", commonEnvVars);
+    console.debug("index env:", process.env);
+
     if (config?.borrowAPYChangeTracker?.enabled) {
       manifest.processors = [
         ...(manifest.processors || []),
