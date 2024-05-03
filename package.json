@@ -1,6 +1,6 @@
 {
   "name": "@flair-sdk/solution-indexing-defi-lending",
-  "version": "0.0.40",
+  "version": "0.0.41",
   "private": false,
   "description": "Customizable ready-made on-chain EVM data indexing for defin lending protocols",
   "type": "module",
