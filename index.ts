@@ -50,6 +50,9 @@ const definition: SolutionDefinition<Config> = {
           );
         }
 
+        console.debug('...(filterGroup.addresses', ...(filterGroup.addresses));
+  
+
         // Update the addresses array of the found filter group
         filterGroup.addresses = [
           ...(filterGroup.addresses || []),
@@ -57,9 +60,11 @@ const definition: SolutionDefinition<Config> = {
             fromFile: `${PACKAGE_NAME}/src/processors/borrow-apy-change-tracker/contracts.csv`,
           },
         ];
+
+        console.debug('filterGroup', filterGroup);
       }
 
-      console.debug('MANIFEST', manifest);
+      console.debug('MANIFEST', manifest.filterGroups);
 
       manifest.processors = [
         ...(manifest.processors || []),
