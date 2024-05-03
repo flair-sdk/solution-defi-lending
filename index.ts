@@ -4,7 +4,7 @@ import {
   SolutionScriptFunction,
 } from "flair-sdk";
 
-export type * from './src/index.js';
+export type * from "./src/index.js";
 
 const PACKAGE_NAME = "@flair-sdk/solution-indexing-defi-lending";
 
@@ -34,40 +34,43 @@ const definition: SolutionDefinition<Config> = {
     }
 
     if (config?.borrowAPYChangeTracker?.enabled) {
-
       if (config?.addAddressesToFilterGroup) {
-        let filterGroup = manifest.filterGroups?.find(
-          (group) => group.id === config.addAddressesToFilterGroup,
+        // Initialize the filterGroups array if it's undefined
+        manifest.filterGroups = manifest.filterGroups || [];
+
+        // Find the filter group by ID
+        let filterGroup = manifest.filterGroups.find(
+          (group) => group.id === config.addAddressesToFilterGroup
         );
+
+        // Throw an error if the filter group doesn't exist
         if (!filterGroup) {
           throw new Error(
-            `Filter group "${config.addAddressesToFilterGroup}" not found, defined in solution-indexing-defi-lending config.addAddressesToFilterGroup`,
-          )
+            `Filter group "${config.addAddressesToFilterGroup}" not found, defined in solution-indexing-defi-lending config.addAddressesToFilterGroup`
+          );
         }
+
+        // Update the addresses array of the found filter group
         filterGroup.addresses = [
           ...(filterGroup.addresses || []),
           {
             fromFile: `${PACKAGE_NAME}/src/processors/borrow-apy-change-tracker/contracts.csv`,
           },
-        ]
-        manifest.filterGroups = [
-          ...(manifest.filterGroups || []),
-          filterGroup,
         ];
-        console.debug('manifest.filterGroups', manifest.filterGroups);
       }
+
+      console.debug('MANIFEST', manifest);
 
       manifest.processors = [
         ...(manifest.processors || []),
         {
-          id: 'borrow-apy-change-tracker',
+          id: "borrow-apy-change-tracker",
           type: ProcessorType.Event,
           env: [...commonEnvVars],
           handler: `${PACKAGE_NAME}/src/processors/borrow-apy-change-tracker/handler.ts`,
           abi: `${PACKAGE_NAME}/src/abis/borrow-apy-change-tracker/**/*.json`,
         },
       ];
-      
     }
     return manifest;
   },
