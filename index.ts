@@ -48,14 +48,17 @@ const definition: SolutionDefinition<Config> = {
             `Filter group "${config.addAddressesToFilterGroup}" not found, defined in solution-indexing-defi-lending config.addAddressesToFilterGroup`,
           )
         }
-        manifest.filterGroups[filterGroup.id].addresses = [
+        filterGroup.addresses = [
           ...(filterGroup.addresses || []),
           {
             fromFile: `${PACKAGE_NAME}/src/processors/borrow-apy-change-tracker/contracts.csv`,
           },
         ]
-        console.debug('DEFI CONFIG', filterGroup);
-        console.debug('DEFI CONFIG', manifest.filterGroups[filterGroup.id]);
+        manifest.filterGroups = [
+          ...(manifest.filterGroups || []),
+          filterGroup,
+        ];
+        console.debug('DEFI CONFIG', manifest.filterGroups);
       }
 
       manifest.processors = [
